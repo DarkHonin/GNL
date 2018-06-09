@@ -1,0 +1,431 @@
+[3] >> ^man(1)                                                                  man(1)&
+[3] >> ^&
+[3] >> ^&
+[3] >> ^&
+[3] >> ^NNAAMMEE&
+[3] >> ^       man - format and display the on-line manual pages&
+[3] >> ^&
+[3] >> ^SSYYNNOOPPSSIISS&
+[3] >> ^       mmaann  [--aaccddffFFhhkkKKttwwWW]  [----ppaatthh]  [--mm _s_y_s_t_e_m] [--pp _s_t_r_i_n_g] [--CC _c_o_n_f_i_g___f_i_l_e]&
+[3] >> ^       [--MM _p_a_t_h_l_i_s_t] [--PP _p_a_g_e_r] [--BB _b_r_o_w_s_e_r] [--HH _h_t_m_l_p_a_g_e_r] [--SS  _s_e_c_t_i_o_n___l_i_s_t]&
+[3] >> ^       [_s_e_c_t_i_o_n] _n_a_m_e _._._.&
+[3] >> ^&
+[3] >> ^&
+[3] >> ^DDEESSCCRRIIPPTTIIOONN&
+[3] >> ^       mmaann formats and displays the on-line manual pages.  If you specify _s_e_c_--lin&
+[3] >> ^       _t_i_o_n, mmaann only looks in that section of the manual.  _n_a_m_e  is  normally&
+[3] >> ^       the  name of the manual page, which is typically the name of a command,a       the  name of the manual page, which is typically the name of a command,&
+[3] >> ^       function, or file.  However, if _n_a_m_e contains  a  slash  (//)  then  mmaann&
+[3] >> ^       interprets  it  as a file specification, .so that you can do mmaann ..//ffoooo..55&
+[3] >> ^       or even mmaann //ccdd//ffoooo//bbaarr..11..ggzz.&
+[3] >> ^&
+[3] >> ^       See below for a description of where mmaann  looks  for  the  manual  page&
+[3] >> ^       files.&
+[3] >> ^&
+[3] >> ^&
+[3] >> ^OOPPTTIIOONNSS&
+[3] >> ^       --CC  ccoonnffiigg__ffiillee&
+[3] >> ^              Specify  the  configuration  file  to  use; the default is //pprrii--&
+[3] >> ^              vvaattee//eettcc//mmaann..ccoonnff.  (See mmaann..ccoonnff(5).)&
+[3] >> ^&
+[3] >> ^       --MM  ppaatthh&
+[3] >> ^              Specify the list of directories to search for man pages.   Sepa-&
+[3] >> ^              rate  the directories with colons.  An empty list is the same as&
+[3] >> ^              not specifying --MM at all.  See SSEEAARRCCHH PPAATTHH FFOORR MMAANNUUAALL PPAAGGEESS.&
+[3] >> ^&
+[3] >> ^       --PP  ppaaggeerr&
+[3] >> ^              Specify which pager to use.  This option overrides the  MMAANNPPAAGGEERR&
+[3] >> ^              environment  variable,  which  in turn overrides the PPAAGGEERR vari-t  varia&
+[3] >> ^              able.  By default, mmaann uses //uussrr//bbiinn//lleessss --iiss.&
+[3] >> ^&
+[3] >> ^       --BB     Specify which browser to use on HTML files.  This  option  over-&
+[3] >> ^              rides  the  BBRROOWWSSEERR  environment  variable. By default, mmaann uses&
+[3] >> ^              //uussrr//bbiinn//lleessss-is,,&
+[3] >> ^&
+[3] >> ^       --HH     Specify a command that renders HTML files as text.  This  option&
+[3] >> ^              overrides  the  HHTTMMLLPPAAGGEERR  environment variable. By default, mmaann&
+[3] >> ^              uses //bbiinn//ccaatt,&
+[3] >> ^&
+[3] >> ^       --SS  sseeccttiioonn__lliisstt&
+[3] >> ^              List is a colon se¡parated list of  manual  sections  to  search.&
+[3] >> ^              This option overrides the MMAANNSSEECCTT environment variable.&
+[3] >> ^&
+[3] >> ^       --aa     By default, mmaann will exit after displaying the first manual page&
+[3] >> ^              it finds.  Using this option forces mmaann to display all the  man-&
+[3] >> ^              ual pages that match nnaammee,, not just the first.&
+[3] >> ^&
+[3] >> ^       --cc     Reformat  the  source man page, even when an up-to-date cat page&
+[3] >> ^              exists.  This can be meaningful if the cat  page  was  formatted&
+[3] >> ^              for  a screen with a different number of columns, or if the pre-&
+[3] >> ^              formatted page is corrupted.&
+[3] >> ^&
+[3] >> ^       --dd     Don't actually display the man  pages,  but  do  print  gobs  of&
+[3] >> ^              debugging information.&
+[3] >> ^&
+[3] >> ^       --DD     Both display and print debugging info.  but  d&
+[3] >> ^&
+[3] >> ^       --ff     Equivalent to wwhhaattiiss.&
+[3] >> ^&
+[3] >> ^       --FF or ----pprreeffoorrmmaatt&
+[3] >> ^              Format only - do not display.&
+[3] >> ^&
+[3] >> ^       --hh     Print a help message and exit.&
+[3] >> ^&
+[3] >> ^       --kk     Equivalent to aapprrooppooss.&
+[3] >> ^&
+[3] >> ^       --KK     Search  for  the  specified  string in *all* man pages. Warning:&
+[3] >> ^              this is probably very slow!  It  helps  to  specify  a  section.&
+[3] >> ^              (Just  to  give  a  rough idea, on my machine this takes about a&
+[3] >> ^              minute per 500 man pages.)&
+[3] >> ^&
+[3] >> ^       --mm  ssyysstteemm&
+[3] >> ^              Specify an alternate set of man pages to  search  based  on  the&
+[3] >> ^              system name given.&
+[3] >> ^&
+[3] >> ^       --pp  ssttrriinngg&
+[3] >> ^              Specify  the  sequence  of  preprocessors to run before nnrrooffff or&
+[3] >> ^              ttrrooffff.  Not all installations will have a full set of preproces-&
+[3] >> ^              sors.   Some of the preprocessors and the letters used to desig-&
+[3] >> ^              nate them are: eqn (e), grap (g), pic (p), tbl (t), vgrind  (v),s &
+[3] >> ^              refer  (r).   This  option  overrides the MMAANNRROOFFFFSSEEQQ environment&
+[3] >> ^              variable.&
+[3] >> ^&
+[3] >> ^       --tt     Use //uussrr//bbiinn//ggrrooffff --TTppss --mmaannddoocc --cc to format  the  manual  page,&
+[3] >> ^              passing  the  output  to  ssttddoouutt..   The default output format of&
+[3] >> ^              //uussrr//bbiinn//ggrrooffff --TTppss --mmaannddoocc --cc is Postscript, refer to the  man-&
+[3] >> ^              ual  page  of //uussrr//bbiinn//ggrrooffff --TTppss --mmaannddoocc --cc for ways to pick an&
+[3] >> ^              alternate format.&
+[3] >> ^&
+[3] >> ^       Depending on the selected  format  and  the  availability  of  printingpt&
+[3] >> ^       devices,  the  output  may  need  to  be  passed through some filter or&
+[3] >> ^       another before being printed.&
+[3] >> ^&
+[3] >> ^       --ww or ----ppaatthh&
+[3] >> ^              Don't actually display the man pages, but  do  print  the  loca-&
+[3] >> ^              tion(s) of the files that would be formatted or displayed. If no&
+[3] >> ^              argument is given: display (on stdout) the list  of  directories&
+[3] >> ^              that  is  searched by mmaann for man pages. If mmaannppaatthh is a link to&
+[3] >> ^              man, then "manpath" is equivalent to "man --path".&
+[3] >> ^&
+[3] >> ^       --WW     Like -w, but p¨ýœûrint file names one per line,  without  additional&
+[3] >> ^              information.   This is useful in shell commands like mmaann --aaWW mmaann&
+[3] >> ^              || xxaarrggss llss --ll&
+[3] >> ^&
+[3] >> ^&
+[3] >> ^CCAATT PPAAGGEESS&
+[3] >> ^       Man will try to save the formatted man pages, in order to save  format-&
+[3] >> ^       ting time the next time these pages are needed.  Traditionally, format-&
+[3] >> ^       ted versions of pages in DIR/manX are saved in DIR/catX, but other map-&
+[3] >> ^       pings   from   man   dir   to   cat  dir  can  be  specified  in  //pprrii--&
+[3] >> ^       vvaattee//eettcc//mmaann..ccoonnff.  No cat pages are saved when the required cat direc-&
+[3] >> ^       tory  does  not  exist.  No cat pages are saved when they are formatted&
+[3] >> ^       for a line length different from 80.   No  cat  pages  are  saved  when&
+[3] >> ^       man.conf contains the line NOCACHE.&
+[3] >> ^&
+[3] >> ^       It is possible to make mmaann suid to a user man. Then, if a cat directory&
+[3] >> ^       has owner man and mode 0755 (only writable by man), and the  cat  files&
+[3] >> ^       have  owner  man  and  mode  0644 or 0444 (only writable by man, or not&
+[3] >> ^       writable at all), no ordinary user can change  the  cat  pages  or  put&
+[3] >> ^       other  files  in the cat directory. If mmaann is not made suid, then a cat&
+[3] >> ^       directory should have mode 0777 if all users should be  able  to  leave&
+[3] >> ^       cat pages there.&
+[3] >> ^&
+[3] >> ^       The  option  --cc  forces  reformatting a page, even if a recent cat page&
+[3] >> ^       exists.&
+[3] >> ^&
+[3] >> ^&
+[3] >> ^HHTTMMLL PPAAGGEESS&
+[3] >> ^       Man will find HTML pages if they live in directories named as  expected&
+[3] >> ^       to  be  ".html", thus a valid name for an HTML version of the llss(1) man&
+[3] >> ^       page would be _/_u_s_r_/_s_h_a_r_e_/_m_a_n_/_h_t_m_l_m_a_n_1_/_l_s_._1_._h_t_m_l.ýœû&
+[3] >> ^&
+[3] >> ^&
+[3] >> ^SSEEAARRCCHH PPAATTHH FFOORR MMAANNUUAALL PPAAGGEESS&
+[3] >> ^man(1)                                                                  man(1)&
+[3] >> ^&
+[3] >> ^&
+[3] >> ^&
+[3] >> ^NNAAMMEE&
+[3] >> ^       man - format and display the on-line manual pages&
+[3] >> ^&
+[3] >> ^SSYYNNOOPPSSIISS&
+[3] >> ^       mmaann  [--aaccddffFFhhkkKKttwwWW]  [----ppaatthh]  [--mm _s_y_s_t_e_m] [--pp _s_t_r_i_n_g] [--CC _c_o_n_f_i_g___f_i_l_e]&
+[3] >> ^       [--MM _p_a_t_h_l_i_s_t] [--PP _p_a_g_e_r] [--BB _b_r_o_w_s_e_r] [--HH _h_t_m_l_p_a_g_e_r] [--SS  _s_e_c_t_i_o_n___l_i_s_t]&
+[3] >> ^       [_s_e_c_t_i_o_n] _n_a_m_e _._._.&
+[3] >> ^&
+[3] >> ^&
+[3] >> ^DDEESSCCRRIIPPTTIIOONN&
+[3] >> ^       mmaann formats and displays the on-line manual pages.  If you specify _s_e_c_--lin&
+[3] >> ^       _t_i_o_n, mmaann only looks in that section of the manual.  _n_a_m_e  is  normally&
+[3] >> ^       the  name of the manual page, which is typically the name of a command,a       the  name of the manual page, which is typically the name of a command,&
+[3] >> ^       function, or file.  However, if _n_a_m_e contains  a  slash  (//)  then  mmaann&
+[3] >> ^       interprets  it  as a file specification, ¨´ªüso that you can do mmaann ..//ffoooo..55&
+[3] >> ^       or even mmaann //ccdd//ffoooo//bbaarr..11..ggzz.&
+[3] >> ^&
+[3] >> ^       See below for a description of where mmaann  looks  for  the  manual  page&
+[3] >> ^       files.&
+[3] >> ^&
+[3] >> ^&
+[3] >> ^OOPPTTIIOONNSS&
+[3] >> ^       --CC  ccoonnffiigg__ffiillee&
+[3] >> ^              Specify  the  configuration  file  to  use; the default is //pprrii--&
+[3] >> ^              vvaattee//eettcc//mmaann..ccoonnff.  (See mmaann..ccoonnff(5).)&
+[3] >> ^&
+[3] >> ^       --MM  ppaatthh&
+[3] >> ^              Specify the list of directories to search for man pages.   Sepa-&
+[3] >> ^              rate  the directories with colons.  An empty list is the same as&
+[3] >> ^              not specifying --MM at all.  See SSEEAARRCCHH PPAATTHH FFOORR MMAANNUUAALL PPAAGGEESS.&
+[3] >> ^&
+[3] >> ^       --PP  ppaaggeerr&
+[3] >> ^              Specify which pager to use.  This option overrides the  MMAANNPPAAGGEERR&
+[3] >> ^              environment  variable,  which  in turn overrides the PPAAGGEERR vari-t  varia&
+[3] >> ^              able.  By default, mmaann uses //uussrr//bbiinn//lleessss --iiss.&
+[3] >> ^&
+[3] >> ^       --BB     Specify which browser to use on HTML files.  This  option  over-&
+[3] >> ^              rides  the  BBRR	´ªüOOWWSSEERR  environment  variable. By default, mmaann uses&
+[3] >> ^              //uussrr//bbiinn//lleessss-is,,&
+[3] >> ^&
+[3] >> ^       --HH     Specify a command that renders HTML files as text.  This  option&
+[3] >> ^              overrides  the  HHTTMMLLPPAAGGEERR  environment variable. By default, mmaann&
+[3] >> ^              uses //bbiinn//ccaatt,&
+[3] >> ^&
+[3] >> ^       --SS  sseeccttiioonn__lliisstt&
+[3] >> ^              List is a colon separated list of  manual  sections  to  search.&
+[3] >> ^              This option overrides the MMAANNSSEECCTT environment variable.&
+[3] >> ^&
+[3] >> ^       --aa     By default, mmaann will exit after displaying the first manual page&
+[3] >> ^              it finds.  Using this option forces mmaann to display all the  man-&
+[3] >> ^              ual pages that match nnaammee,, not just the first.&
+[3] >> ^&
+[3] >> ^       --cc     Reformat  the  source man page, even when an up-to-date cat page&
+[3] >> ^              exists.  This can be meaningful if the cat  page  was  formatted&
+[3] >> ^              for  a screen with a different num1´ªüber of columns, or if the pre-&
+[3] >> ^              formatted page is corrupted.&
+[3] >> ^&
+[3] >> ^       --dd     Don't actually display the man  pages,  but  do  print  gobs  of&
+[3] >> ^              debugging information.&
+[3] >> ^&
+[3] >> ^       --DD     Both display and print debugging info. the man&
+[3] >> ^&
+[3] >> ^       --ff     Equivalent to wwhhaattiiss.&
+[3] >> ^&
+[3] >> ^       --FF or ----pprreeffoorrmmaatt&
+[3] >> ^              Format only - do not display.&
+[3] >> ^&
+[3] >> ^       --hh     Print a help message and exit.&
+[3] >> ^&
+[3] >> ^       --kk     Equivalent to aapprrooppooss.&
+[3] >> ^&
+[3] >> ^       --KK     Search  for  the  specified  string in *all* man pages. Warning:&
+[3] >> ^              this is probably v”´ªüery slow!  It  helps  to  specify  a  section.&
+[3] >> ^              (Just  to  give  a  rough idea, on my machine this takes about a&
+[3] >> ^              minute per 500 man pages.)&
+[3] >> ^&
+[3] >> ^       --mm  ssyysstteemm&
+[3] >> ^              Specify an alternate set of man pages to  search  based  on  the&
+[3] >> ^              system name given.&
+[3] >> ^&
+[3] >> ^       --pp  ssttrriinngg&
+[3] >> ^              Specify  the  sequence  of  preprocessors to run before nnrrooffff or&
+[3] >> ^              ttrrooffff.  Not all installations will have a full set of preproces-&
+[3] >> ^              sors.   Some of the preprocessors and the letters used to desig-&
+[3] >> ^              nate them are: eqn (e), grap (g), pic (p), tbl (t), vgrind  (v),&
+[3] >> ^              refer  (r).   This  option  overrides the MMAANNRROOFFFFSSEEQQ environment&
+[3] >> ^              variable.&
+[3] >> ^&
+[3] >> ^       --tt     Use //uussrr//bbiinn//ggrrooffff --TTppss --mmaannddoocc --cc to format  the  manual  page,&
+[3] >> ^              passing  the  output  to  ssttddoouutt..   The default output format of&
+[3] >> ^              //uussrr//bbiinn//ggrrooffff --TTppss --mmaannddoocc --cc is Postscript, refer to the  man-&
+[3] >> ^              ual  page  of //uussrr//bbiinn//ggrrooffff --TTppss --mmaannddoocc --cc for ways to pick an&
+[3] >> ^              alternate format.&
+[3] >> ^&
+[3] >> ^       Depending on the selected  format  and  the  availability  of  printing&
+[3] >> ^       devices,  the  output  may  need  to  be  passed through some filter or&
+[3] >> ^       another before being printed.&
+[3] >> ^&
+[3] >> ^       --ww or ----ppaatthh&
+[3] >> ^              Don't actually display the man pages, but  do  print  the  loca-&
+[3] >> ^              tion(s) of the files that would be formatted or displayed. If no&
+[3] >> ^              argument is given: display (on stdout) the list  of  directories&
+[3] >> ^              that  is  searched by mmaann for man pages. If mmaannppaatthh is a link to&
+[3] >> ^              man, then "manpath" is equivalent to "man --path".&
+[3] >> ^&
+[3] >> ^       --WW     Like -w, but print file names one per line,  without  additional&
+[3] >> ^              information.   This is useful in shell commands like mmaann --aaWW mmaann&
+[3] >> ^              || xxaarrggss llss --ll&
+[3] >> ^&
+[3] >> ^&
+[3] >> ^CCAATT PPAAGGEESS&
+[3] >> ^       Man will try to save the formatted man pages, in order to save  format-&
+[3] >> ^       ting time the next time these pages are needed.  Traditionally, format-&
+[3] >> ^       ted versions of pages in DIR/manX are saved in DIR/catX, but other map-&
+[3] >> ^       pings   from   man   dir   to   cat  dir  can  be  specified  in  //pprrii--&
+[3] >> ^       vvaattee//eettcc//mmaann..ccoonnff.  No cat pages are saved when the required cat direc-&
+[3] >> ^       tory  does  not  exist.  No cat pages are saved when they are formatted&
+[3] >> ^       for a line length different from 80.   No  cat  pages  are  saved  when&
+[3] >> ^       man.conf contains the line NOCACHE.&
+[3] >> ^&
+[3] >> ^       It is possible to make mmaann suid to a user man. Then, if a cat directory&
+[3] >> ^       has owner man and mode 0755 (only writable by man), and the  cat  files&
+[3] >> ^       have  owner  man  and  mode  0644 or 0444 (only writable by man, or not&
+[3] >> ^       writable at all), no ordi'´ªünary user can change  the  cat  pages  or  put&
+[3] >> ^       other  files  in the cat directory. If mmaann is not made suid, then a cat&
+[3] >> ^       directory should have mode 0777 if all users should be  able  to  leave&
+[3] >> ^       cat pages there.&
+[3] >> ^&
+[3] >> ^       The  option  --cc  forces  reformatting a page, even if a recent cat page&
+[3] >> ^       exists.&
+[3] >> ^&
+[3] >> ^&
+[3] >> ^HHTTMMLL PPAAGGEESS&
+[3] >> ^       Man will find HTML pages if they live in directories named as  expected&
+[3] >> ^       to  be  ".html", thus a valid name for an HTML version of the llss(1) man&
+[3] >> ^       page would be _/_u_s_r_/_s_h_a_r_e_/_m_a_n_/_h_t_m_l_m_a_n_1_/_l_s_._1_._h_t_m_l.u_s_&
+[3] >> ^&
+[3] >> ^&
+[3] >> ^SSEEAARRCCHH PPAATTHH FFOORR MMAANNUUAALL PPAAGGEESS&
+[3] >> ^       mmaann uses a sophisticated method of finding manual page files, based  on&
+[3] >> ^       the   invocation   options   and   environment   variables,  the  //pprrii--&
+[3] >> ^       vvaattee//eettcc//mmaann..ccoonnff configuration file, and some built in conventions and&
+[3] >> ^       heuristics.&
+[3] >> ^&
+[3] >> ^       First  of  all, when the _n_a_m_e argument to mmaann contains a slash (//), mmaann&
+[3] >> ^       assumes it is a file specification itself, and there  is  no  searching&
+[3] >> ^       involved.&
+[3] >> ^&
+[3] >> ^       But in the normal case where _n_a_m_e doesn't contain a slash, mmaann searches&
+[3] >> ^       a variety of directories for a file that could be a manual page for the&
+[3] >> ^       topic named.&
+[3] >> ^&
+[3] >> ^       If  you  specify  the --MM _p_a_t_h_l_i_s_t option, _p_a_t_h_l_i_s_t is a colon-separated&
+[3] >> ^       list of the directories that mmaann searches.s_t opt&
+[3] >> ^&
+[3] >> ^       If you don't specify --MM but set the MMAANNPPAATTHH environment  variable,  the&
+[3] >> ^       value  of  that  variable  is  the  list  of  the  directories that mmaann&
+[3] >> ^       searches.&
+[3] >> ^&
+[3] >> ^       If you don't specify an explicit path list  with  --MM  or  MMAANNPPAATTHH,  mmaann&
+[3] >> ^       develops  its  own path list based on the contents of the configuration&
+[3] >> ^       file //pprriivvaattee//eettcc//mmaann..ccoonnff.  The MMAANNPPAATTHH statements in  the  configura-&
+[3] >> ^       tion  file  identify  particular  directories  to include in the search&
+[3] >> ^       path.&
+[3] >> ^&
+[3] >> ^       Furthermore, the MMAANNPPAATTHH__MMAAPP statements add to the search path  depend-&
+[3] >> ^       ing  on your command search path (i.e. your PPAATTHH environment variable).&
+[3] >> ^       For each directory that may be in  the  command  search  path,  a  MMAANN--&
+[3] >> ^       PPAATTHH__MMAAPP  statement  specifies  a directory that should be added to the&
+[3] >> ^       search path for manual page files.  mmaann looks at the PPAATTHH variable  and&
+[3] >> ^       adds the corresponding directories to the manual page file search path.&
+[3] >> ^       Thus, with the proper use of MMAANNPPAATTHH__MMAAPP, when you  issue  the  command&
+[3] >> ^       mmaann  xxyyzz,  you  get a manual page for the program that would run if you&
+[3] >> ^       issued the command xxyyzz.&
+[3] >> ^&
+[3] >> ^       In addition, for each directory in the command search path (we'll  call&
+[3] >> ^       it  a  "command  directory")  for  which  you do _n_o_t have a MMAANNPPAATTHH__MMAAPP&
+[3] >> ^       statement, mmaann automatically looks for a manual page directory "nearby"&
+[3] >> ^       namely as a subdirectory in the command directory itself or in the par-&
+[3] >> ^       ent directory of the command directory.&
+[3] >> ^&
+[3] >> ^       You can disable the automatic "nearby" searches by  including  a  NNOOAAUU--&
+[3] >> ^       TTOOPPAATTHH statement in //pprriivvaattee//eettcc//mmaann..ccoonnff.&
+[3] >> ^&
+[3] >> ^       In  each  directory in the search path as described aboveÙ, mmaann searches&
+[3] >> ^       for a file named _t_o_p_i_c.._s_e_c_t_i_o_n, with an optional suffix on the  section&
+[3] >> ^       number  and  possibly  a compression suffix.  If it doesn't find such ana&
+[3] >> ^       file, it then looks in any subdirectories named mmaann_N or ccaatt_N where _N is&
+[3] >> ^       the  manual section number.  If the file is in a ccaatt_N subdirectory, mmaann&
+[3] >> ^       assumes it is a formatted manual page file (cat page).  Otherwise,  mmaann&
+[3] >> ^       assumes it is unformatted.  In either cas¹e, if the filename has a known&
+[3] >> ^       compression suffix (like ..ggzz), mmaann assumes it is gzipped.&
+[3] >> ^&
+[3] >> ^       If you want to see where (or if) mmaann would find the manual page  for  a&
+[3] >> ^       particular topic, use the ----ppaatthh (--ww) option.&
+[3] >> ^&
+[3] >> ^&
+[3] >> ^EENNVVIIRROONNMMEENNTT&
+[3] >> ^       MMAANNPPAATTHH&
+[3] >> ^              If  MMAANNPPAATTHH is set, mmaann uses it as the path to search for manual&
+[3] >> ^              page files.  It overrides the configuration file and  the  auto-&
+[3] >> ^              matic  search  path,  but  is  overridden  by  the --MM invocation  but  is  ove&
+[3] >> ^              option.  See SSEEAARRCCHH PPAATTHH FFOORR MMAANNUUAALL PPAAGGEESS.&
+[3] >> ^&
+[3] >> ^       MMAANNPPLL  If MMAANNPPLL is set, its value is used as the display  page  length.&
+[3] >> ^              Otherwise, the entire man page will occupy one (long) page.&
+[3] >> ^&
+[3] >> ^       MMAANNRROOFFFFSSEEQQ&
+[3] >> ^              If  MMAANNRROOFFFFSSEEQQ is set, its value is used to determine the set of&
+[3] >> ^              preprocessors run before running nnrrooffff or  ttrrooffff.   By  default,&
+[3] >> ^              pages are passed through the tbl preprocessor before nnrrooffff.   By  defaul&
+[3] >> ^&
+[3] >> ^       MMAANNSSEECCTT&
+[3] >> ^              If  MMAANNSSEECCTT  is set, its value is used to determine which manual&
+[3] >> ^              sections to search.&
+[3] >> ^&
+[3] >> ^       MMAANNWWIIDDTTHH&
+[3] >> ^              If MMAANNWWIIDDTTHH is set, its value is  used  as  the  width  manpages&
+[3] >> ^              should  be displayed.  Otherwise the pages may be displayed over&
+[3] >> ^              the whole width of your screen.&
+[3] >> ^&
+[3] >> ^       MMAANNPPAAGGEERR&
+[3] >> ^              If MMAANNPPAAGGEERR is set, its value is used as the name of the program&
+[3] >> ^              to  use to display the man page.  If not, then PPAAGGEERR is used. If&
+[3] >> ^              that has no value either, //uussrr//bbiinn//lleessss --iiss is used.&
+[3] >> ^&
+[3] >> ^       BBRROOWWSSEERR&
+[3] >> ^              The name of a browser to use for displaying HTML  manual  pages.&
+[3] >> ^              If it is not set, /usr/bin/less -is is used.&
+[3] >> ^&
+[3] >> ^       HHTTMMLLPPAAGGEERR&
+[3] >> ^              The  command to use for rendering HTML manual pages as text.  If&
+[3] >> ^              it is not set, /bin/cat is used.&
+[3] >> ^&
+[3] >> ^       LLAANNGG   If LLAANNGG is set, its value defines the name of  the  subdirectory&
+[3] >> ^              where  man first looks for man pages. Thus, the command `LANG=dk&
+[3] >> ^              man 1 foo' will cause man to  look  for  the  foo dµªü man  page  in&
+[3] >> ^              .../dk/man1/foo.1,  and  if  it cannot find such a file, then in&
+[3] >> ^              .../man1/foo.1, where ... is a directory on the search path.µªü&
+[3] >> ^&
+[3] >> ^       NNLLSSPPAATTHH,, LLCC__MMEESSSSAAGGEESS,, LLAANNGG&
+[3] >> ^              The environment variables NNLLSSPPAATTHH and LLCC__MMEESSSSAAGGEESS (or LLAANNGG  when&
+[3] >> ^              the  latter  does not exist) play a role in locating the message&
+[3] >> ^              catalog.  (But the English messages are  compiled  in,  and  for&
+[3] >> ^              English no catalog is required.)  Note that programs like ccooll((11))&
+[3] >> ^              called by man also use e.g. LC_CTYPE.&
+[3] >> ^&
+[3] >> ^       PPAATTHH   PPAATTHH helps determine the search path for manual page files.  See&
+[3] >> ^              SSEEAARRCCHH¼µªü PPAATTHH FFOORR MMAANNUUAALL PPAAGGEESS.&
+[3] >> ^&
+[3] >> ^       SSYYSSTTEEMM SSYYSSTTEEMM is used to get the default alternate system name (for use&
+[3] >> ^              with the --mm option).&
+[3] >> ^&
+[3] >> ^BBUUGGSS&
+[3] >> ^       The --tt option only works if a troff-like program is installed.&
+[3] >> ^       If you see blinking  \255  or  <AD>  instead  of  hyphens,  put  `LESS-&
+[3] >> ^       CHARSET=latin1' in your environment.&
+[3] >> ^&
+[3] >> ^TTIIPPSS&
+[3] >> ^       If you add the line&
+[3] >> ^&
+[3] >> ^         (global-set-key  [(f1)]  (lambda () (in|µªüteractive) (manual-entry (cur-&
+[3] >> ^       rent-word))))&
+[3] >> ^&
+[3] >> ^       to your _._e_m_a_c_s file, then hitting F1 will give you the man page for the&
+[3] >> ^       library call at the current cursor position.&
+[3] >> ^&
+[3] >> ^       To  get  a  plain  text  version  of a man page, without backspaces and&
+[3] >> ^       underscores, try&
+[3] >> ^&
+[3] >> ^         # man foo | col -b > foo.mantxt&
+[3] >> ^&
+[3] >> ^AAUUTTHHOORR&
+[3] >> ^       John W. Eaton was the  original  author  of  mmaann.   Zeyd  M.  Ben-Halim&
+[3] >> ^       released  man  1.2,  and  Andries Brouwer followed up with versions 1.3&
+[3] >> ^       thru 1.5p.  Federico  Lucifredi  <flucifredi@acm.org>  is  the  current&
+[3] >> ^       maintainer.&
+[3] >> ^&
+[3] >> ^SSEEEE AALLSSOO&
+[3] >> ^       apropos(1), whatis(1), less(1), groff(1), man.conf(5).&
+[3] >> ^&
+[3] >> ^&
+[3] >> ^&
+[3] >> ^                              September 19, 2005                        man(1)&
