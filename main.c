@@ -8,8 +8,8 @@ int main(void)
     char *line;
     while (get_next_line(fd, &line) > 0)
     {
-        printf("[%i] >> ^%s&\n",fd, line);
-        printf("OK: %i\n",(ft_strcmp("oiuytrew", line)));
+        //printf("[%i] >> ^%s&\n",fd, line);
+        //printf("OK: %i\n",(ft_strcmp("oiuytrew", line)));
         count++;
     }
 }
