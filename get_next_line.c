@@ -15,75 +15,59 @@
 #include <stdio.h>
 #include <unistd.h>
 
-static int     create_buffer(t_buff **buff)
+static t_list	*get_buffer(int fd)
 {
-	if (!(*buff))
-		*buff = ft_buffnew(BUFF_SIZE, 0);
-	if (!*buff)
-		return (0);
-	return (1);
+	static t_list	*links = NULL;
+	t_list 			*ret;
+	t_buff			*buffer;
+
+	ret = links;
+	while (ret)
+	{
+		if (ret->content_size == fd)
+			return (ret);
+		ret = ret->next;
+	}
+	buffer = ft_buffnew(BUFF_SIZE, fd);
+	ret = ft_lstnew(0, fd);
+	ret->content = buffer;
+	ft_lstadd(&links, ret);
+	return (ret);
 }
 
-static int	maintain_buff(t_buff *buff, int fd)
+static int bufffill(t_buff *buff)
 {
-	int avail = ft_buffstat(buff);
-	if (ft_buffstat(buff) <= 0)
-	{
-		ft_buffreset(buff);
-		avail = read(fd, buff->data, BUFF_SIZE);
-		if (avail <= 0)
-			buff->buff_size = 0;
-		else
-			buff->buff_size = avail;
-		return (avail);
-	}
-	return (ft_buffstat(buff));
+	if (ft_buffstat(buff) > 0)
+		return (ft_buffstat(buff));
+    if (buff->data == NULL)
+        buff->data = ft_memalloc(buff->buff_size);
+    buff->available = read(buff->meta, buff->data, BUFF_SIZE);
+    ft_buffreset(buff);
+    return (ft_buffstat(buff));
 }
+
 
 int     get_next_line(int fd, char **line)
 {
-	static t_buff	*buffer = NULL;
-	int				avail;
-	char			*line_end;
-	t_buff			*line_buffer;
-	int				bytes_handled;
+	t_buff	*buffer;
+	t_buff	*line_buffer;
+	char	*endl;
 
-	if (fd < 0 || line == NULL || !create_buffer(&buffer))
+	if (fd < 0 || line == NULL || !(buffer = (t_buff *)(get_buffer(fd)->content)))
 		return (-1);
-	bytes_handled = 0;
-	line_buffer = ft_buffnew(0,1);
-	ft_buffreset(line_buffer);
-	while ((avail = maintain_buff(buffer, fd)) > 0)
-	{
-		if (avail <= 0)
-			break;
-		//printf("--------------------------------------\n");
-		//printf("Data currently in buffer: %i\n", avail);
-		//printf("Line starts: [%i] %p\n", avail, buffer->pointer);
-		line_end = ft_memchr(buffer->pointer, '\n', avail);
-		if (line_end != 0)
-			avail = line_end - (char *)buffer->pointer - 1;
-		//printf("Line ends: [%i] %p\n", avail, line_end);
-		//printf("Chars to handle: %i\n", avail);
-		ft_buffnap(line_buffer, buffer, avail + (line_end != 0));
-		//printf("Line: %s\n", line_buffer->data);
-		buffer->pointer += avail + ((line_end != 0) * 2);
-		bytes_handled += avail + ((line_end != 0) * 2);
-		if (line_end != 0)
+	line_buffer = ft_buffnew(0, 0);
+	while (bufffill(buffer))
+	{	
+		buffer->pointer = ft_strchr_n(buffer->pointer, '\n');
+		endl = ft_strchr(buffer->pointer,'\n');
+		if (endl == 0)
+			endl = buffer->pointer + ft_buffstat(buffer);
+		ft_buffnap(line_buffer, buffer, ((void *)endl - buffer->pointer));
+		buffer->pointer = endl + (*endl == '\n');
+		if (*endl == '\n')
 			break ;
 	}
-	//printf("Available after loop: %i\nBytes handled: %i\n", avail, bytes_handled);
-	*line = ft_strndup(line_buffer->data, line_buffer->buff_size);
-	//printf("Freeing line buffer\n");
-	ft_buffdel(line_buffer);
-	if (avail <= 0 && bytes_handled == 0)
-	{
-		//printf("Freeing file buffer\n");
-		if (buffer != NULL)
-			ft_buffdel(buffer);
-		buffer = NULL;
-		//printf("BITCH");
-		return (avail);
-	}
-	return (1);
+	printf("^%s&\n", ft_strndup(line_buffer->data, line_buffer->buff_size));
+	
+	return (0);
 }
