@@ -171,7 +171,7 @@ SSEEAARRCCHH PPAATTHH FFOORR MMAANNUUAALL PPAAGGEESS
        ing  on your command search path (i.e. your PPAATTHH environment variable).
        For each directory that may be in  the  command  search  path,  a  MMAANN--
        PPAATTHH__MMAAPP  statement  specifies  a directory that should be added to the
-       search path for manual page files.  mmaann looks at the PPAATTHH variable  and
+       search path for manual page files.  mmaann looks at the PPAATTHH variable  and       
        adds the corresponding directories to the manual page file search path.
        Thus, with the proper use of MMAANNPPAATTHH__MMAAPP, when you  issue  the  command
        mmaann  xxyyzz,  you  get a manual page for the program that would run if you
