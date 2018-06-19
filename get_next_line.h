@@ -18,5 +18,6 @@
 #include "libft.h"
 
 int		get_next_line(const int fd, char **line);
+t_list	*get_buffer(int fd, t_list **links);
 
 #endif

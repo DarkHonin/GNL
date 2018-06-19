@@ -15,19 +15,11 @@
 #include <stdio.h>
 #include <unistd.h>
 
-static void itter(t_list *q)
+t_list	*get_buffer(int fd, t_list **links)
 {
-	printf("%i\n", q->content_size);
-}
-
-
-static t_list	*get_buffer(int fd)
-{
-	static t_list	*links = NULL;
 	t_list 			*ret;
-	t_buff			*buffer;
 
-	ret = links;
+	ret = *links;
 	while (ret)
 	{
 		if (ret->content_size == (size_t)fd)
@@ -37,8 +29,10 @@ static t_list	*get_buffer(int fd)
 	ret = ft_lstnew(0, fd);
 	ret->content = ft_buffnew(BUFF_SIZE, fd);
 	ret->content_size = fd;
-	ft_lstadd(&links, ret);
-	ft_lstiter(links, &itter);
+	if (*links == NULL)
+		*links = ret;
+	else
+		ft_lstadd(links, ret);
 	return (ret);
 }
 
@@ -53,21 +47,26 @@ static int bufffill(t_buff *buff)
     return (buff->available);
 }
 
-static void dellink(void *data, size_t q)
+static void dellink(t_list **link, t_list *links)
 {
-	ft_buffdel(data);
-	q = 0;
+	t_list *patch_parent;
+
+	ft_buffdel((t_buff *)(*link)->content);
+	patch_parent = links;
+	while (patch_parent->next && patch_parent->next != *link)
+		patch_parent = patch_parent->next;
+	patch_parent->next = (*link)->next;
 }
 
 int     get_next_line(int fd, char **line)
 {
+	static t_list	*links;
 	t_list	*link;
 	t_buff	*buffer;
 	t_buff	*line_buffer;
 	char	*endl;
-	int		ret;
 
-	if (fd < 0 || line == NULL || !(link = get_buffer(fd)))
+	if (fd < 0 || line == NULL || !(link = get_buffer(fd, &links)))
 		return (-1);
 	buffer = (t_buff *)link->content;
 	line_buffer = ft_buffnew(0, 0);
@@ -82,15 +81,15 @@ int     get_next_line(int fd, char **line)
 		if (*endl == '\n')
 			break ;
 	}
-	ret = -1;
+	if (line_buffer->buff_size > 0)
+		*line = ft_strndup(line_buffer->data, line_buffer->buff_size);
+	else
+		*line = ft_strnew(0);
+	ft_buffdel(line_buffer);
 	if (buffer->available < 0)
 	{
-		ft_lstdelone(&link, &dellink);
-		ft_buffdel(line_buffer);
-		return (ret);
+		dellink(&link, links);
+		return (-1);
 	}
-	*line = ft_strndup(line_buffer->data, line_buffer->buff_size);
-	ret = **line != 0;
-	ft_buffdel(line_buffer);
-	return (ret);
+	return (buffer->available > 0 || ft_strlen(*line) > 0);
 }
