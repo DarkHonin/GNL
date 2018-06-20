@@ -14,6 +14,7 @@ int main(void)
         "line a new line",
         "that isnt verry long but should work"
     };
+    char *single = "thisvisq";
     int resp[4] = {
         1,
         1,
@@ -25,6 +26,7 @@ int main(void)
 
     int fd1 = open("simple", O_RDONLY);
     int fd2 = open("empty", O_RDONLY);
+    int fd3 = open("test2", O_RDONLY);
 
     link = get_buffer(fd1, &links);
     link2 = get_buffer(fd2, &links);
@@ -41,11 +43,15 @@ int main(void)
         ft_putendl(line);
         test("Attempted to read simple: ", MK_T_INT(response), MK_T_INT(resp[index]));
         test("Checking returned line: ", MK_T_PNTR(line, ft_strlen(line)), MK_T_PNTR(simple[index], ft_strlen(simple[index])));
-        free(line);
         index++;
     }
+    fd1 = open("simple", O_RDONLY);
     test("last response to read simple: ", MK_T_INT(response), MK_T_INT(resp[index]));
 
     response = get_next_line(fd2, &line);
     test("response to read empty: ", MK_T_INT(response), MK_T_INT(resp[index]));
+    
+    response = get_next_line(fd3, &line);
+    test("response to read single: ", MK_T_INT(response), MK_T_INT(resp[0]));
+    test("Checking returned line: ", MK_T_PNTR(line, ft_strlen(line)), MK_T_PNTR(single, ft_strlen(single)));
 }
