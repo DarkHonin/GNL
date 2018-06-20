@@ -51,7 +51,10 @@ int main(void)
     response = get_next_line(fd2, &line);
     test("response to read empty: ", MK_T_INT(response), MK_T_INT(resp[index]));
     
-    response = get_next_line(fd3, &line);
-    test("response to read single: ", MK_T_INT(response), MK_T_INT(resp[0]));
-    test("Checking returned line: ", MK_T_PNTR(line, ft_strlen(line)), MK_T_PNTR(single, ft_strlen(single)));
+    while((response = get_next_line(fd3, &line)))
+    {
+        test("response to read single: ", MK_T_INT(response), MK_T_INT(resp[0]));
+        test("Checking returned line: ", MK_T_PNTR(line, ft_strlen(line)), MK_T_PNTR(single, ft_strlen(single)));
+    }
+    test("response to read single: ", MK_T_INT(response), MK_T_INT(resp[3]));
 }
