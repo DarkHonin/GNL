@@ -6,7 +6,7 @@
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 09:45:06 by wgourley          #+#    #+#             */
-/*   Updated: 2018/06/24 09:40:39 by wgourley         ###   ########.fr       */
+/*   Updated: 2018/06/29 13:21:18 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int			get_next_line(int fd, char **line)
 	lb = ft_buffnew(0, 0);
 	while (bufffill(bu) > 0)
 	{
-		bu->pointer = ft_memchr_n(bu->pointer, '\n', ft_buffstat(bu));
+		//bu->pointer = ft_memchr_n(bu->pointer, '\n', ft_buffstat(bu));
 		if (!bu->pointer || (*((char *)bu->pointer - sizeof(char)) == '\n'
 					&& lb->buff_size > 0))
 			break ;
