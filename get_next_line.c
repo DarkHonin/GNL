@@ -6,7 +6,7 @@
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 09:45:06 by wgourley          #+#    #+#             */
-/*   Updated: 2018/06/29 13:21:18 by wgourley         ###   ########.fr       */
+/*   Updated: 2018/06/30 14:34:22 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-t_list		*get_buffer(int fd, t_list **links)
+static t_list	*get_buffer(int fd, t_list **links)
 {
 	t_list	*ret;
 	t_list	*last;
@@ -40,18 +40,19 @@ t_list		*get_buffer(int fd, t_list **links)
 	return (ret);
 }
 
-static int	bufffill(t_buff *buff)
+static int		bufffill(t_buff *buff)
 {
 	if (ft_buffstat(buff) > 0 && ft_buffstat(buff) < BUFF_SIZE)
 		return (ft_buffstat(buff));
 	if (buff->data == NULL)
 		buff->data = ft_memalloc(buff->buff_size);
+	ft_bzero(buff->data, BUFF_SIZE);
 	buff->available = read(buff->meta, buff->data, BUFF_SIZE);
 	ft_buffreset(buff);
 	return (buff->available);
 }
 
-void		dellink(t_list **link, t_list **links)
+static void		dellink(t_list **link, t_list **links)
 {
 	t_list *last;
 	t_list *current;
@@ -76,7 +77,7 @@ void		dellink(t_list **link, t_list **links)
 	*link = NULL;
 }
 
-static int	slice_line(t_buff *line_buffer,
+static int		slice_line(t_buff *line_buffer,
 			t_list **links, t_list *link, char **line)
 {
 	int data_read;
@@ -97,7 +98,7 @@ static int	slice_line(t_buff *line_buffer,
 	return (data_read || (**line));
 }
 
-int			get_next_line(int fd, char **line)
+int				get_next_line(int fd, char **line)
 {
 	static t_list	*links = NULL;
 	t_list			*link;
@@ -111,10 +112,6 @@ int			get_next_line(int fd, char **line)
 	lb = ft_buffnew(0, 0);
 	while (bufffill(bu) > 0)
 	{
-		//bu->pointer = ft_memchr_n(bu->pointer, '\n', ft_buffstat(bu));
-		if (!bu->pointer || (*((char *)bu->pointer - sizeof(char)) == '\n'
-					&& lb->buff_size > 0))
-			break ;
 		endl = (char *)ft_memchr(bu->pointer, '\n', ft_buffstat(bu));
 		if (endl == 0)
 			endl = bu->pointer + ft_buffstat(bu);
