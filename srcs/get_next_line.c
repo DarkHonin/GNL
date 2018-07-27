@@ -17,10 +17,8 @@
 static t_list	*get_buffer(int fd, t_list **links)
 {
 	t_list	*ret;
-	t_list	*last;
 
 	ret = *links;
-	last = NULL;
 	while (ret)
 	{
 		if (ret->next == *links)
@@ -30,7 +28,6 @@ static t_list	*get_buffer(int fd, t_list **links)
 		}
 		if (((t_buff *)ret->content)->meta == fd)
 			return (ret);
-		last = ret;
 		ret = ret->next;
 	}
 	ret = ft_lstnew(NULL, 0);
