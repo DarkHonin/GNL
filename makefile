@@ -1,15 +1,9 @@
-LIBTEST=${CURDIR}/../libtest
-LIBFT=${CURDIR}/libft
+NAME=libgnl.a
+LIB_CFG=../libs.mk
+include ../gen.mk
+export NAME
 
-LIBS = $(LIBFT) $(LIBTEST)
-
-FLAGS=-I$(LIBTEST) -I$(LIBFT) -I. -L$(LIBTEST) -L$(LIBFT) -lft -ltest -Wextra -Wall -Werror
-
-make: make_libs
-	gcc $(FILE) get_next_line.c $(FLAGS) -o $(FILE).bin
-
-make_libs:
-	for i in $(LIBS); do \
-		make -C $$i LIBFT=$(LIBFT); \
-	done
-
+make: $(OBJS)
+	@ar rc $(NAME) $(OBJS)
+	@ranlib $(NAME)
+	@echo "LIB MADE"
